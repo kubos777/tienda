@@ -12,7 +12,7 @@ typedef struct elementos_tienda
 
 int login ();
 prod_tienda * lee_archivo (FILE *,prod_tienda *);
-prod_tienda * meteProductos(prod_tienda *);
+prod_tienda * hazProductos(prod_tienda *);
 prod_tienda * cambiarCant(FILE *, prod_tienda *);
 prod_tienda * cambiarCost(FILE *, prod_tienda *);
 void muestraInv(FILE *,prod_tienda *);
@@ -34,7 +34,7 @@ int login(){
 		return entrada;
 	else
 		n_intentos ++;
-		if(intento == 3)
+		if(n_intentos == 3)
 		{
 			p("\n\tError, has alcanzado el limite de intentos.");
 			exit(0);
@@ -45,5 +45,57 @@ int login(){
 			getchar();
 		}
 	}
+	return 0;
+}
+prod_tienda * hazProductos(prod_tienda *producto){
+	int i;
+	producto=(prod_tienda *) calloc(20,sizeof(prod_tienda));
+	strcpy(producto[0].producto, "Aceite");
+	producto[0].costo = 18.50;
+	strcpy(producto[1].producto, "Coca-cola");
+	producto[1].costo = 23.00;
+	strcpy(producto[2].producto, "Nito");
+	producto[2].costo = 9.00;
+	strcpy(producto[3].producto, "Chips");
+	producto[3].costo = 10.00;
+	strcpy(producto[4].producto, "Chetos");
+	producto[4].costo = 8.00;
+	strcpy(producto[5].producto, "Huevo");
+	producto[5].costo = 25.50;
+	strcpy(producto[6].producto, "Frijoles");
+	producto[6].costo = 16.50;
+	strcpy(producto[7].producto, "Queso");
+	producto[7].costo = 65.00;
+	strcpy(producto[8].producto, "Jamon");
+	producto[8].costo = 40.00;
+	strcpy(producto[9].producto, "Leche");
+	producto[9].costo = 16.00;
+	strcpy(producto[10].producto, "Yogur");
+	producto[10].costo = 5.50;
+	strcpy(producto[11].producto, "Mantequilla");
+	producto[11].costo = 10.00;
+	strcpy(producto[12].producto, "Dulces");
+	producto[12].costo = 1.50;
+	strcpy(producto[13].producto, "Salsa");
+	producto[13].costo = 10.50;
+	strcpy(producto[14].producto, "Chiles");
+	producto[14].costo = 12.50;
+	strcpy(producto[15].producto, "Chipotles");
+	producto[15].costo = 11.00;
+	strcpy(producto[16].producto, "Pan");
+	producto[16].costo = 27.00;
+	strcpy(producto[17].producto, "Mermelada");
+	producto[17].costo = 18.00;
+	strcpy(producto[18].producto, "Sal");
+	producto[18].costo = 11.50;
+	strcpy(producto[19].producto, "Azucar");
+	producto[19].costo = 16.00;
+	for (i = 0; i < 20; i++)
+		producto[i].disponible = 50;
+	return producto;
+}
+
+int main(){
+	p("hola");
 }
 
