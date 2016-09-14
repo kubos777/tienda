@@ -91,10 +91,25 @@ prod_tienda * hazProductos(prod_tienda *producto){
 	strcpy(producto[19].producto, "Azucar");
 	producto[19].costo = 16.00;
 	for (i = 0; i < 20; i++)
-		producto[i].disponible = 50;
+		producto[i].disponible = 10;
 	return producto;
 }
-
+void insertarProd(FILE *archivo, prod_tienda *producto){
+	int i;
+	if((archivo =fopen("archivo.txt","r")) == NULL)
+		if((archivo =fopen("archivo.txt","a+")) == NULL)
+		{
+			p("\n\tError, el archivo no existe o esta daniado");
+			exit(0);
+		}
+		else{
+			fprintf(archivo, "Productos 	Costo\tDisponible\n\n");
+			for(i=0;i<20;i++)
+			fprintf(archivo, "%16s%10.2f\t%d\n", producto[i].producto, producto[i].costo, producto[i].disponible);
+			}
+	fclose(archivo);
+	return;
+}
 int main(){
 	p("hola");
 }
