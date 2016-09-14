@@ -11,7 +11,7 @@ typedef struct elementos_tienda
 }prod_tienda;
 
 int login ();
-prod_tienda * lee_archivo (FILE *,prod_tienda *);
+prod_tienda * lee_inventario (FILE *,prod_tienda *);
 prod_tienda * hazProductos(prod_tienda *);
 prod_tienda * cambiarCant(FILE *, prod_tienda *);
 prod_tienda * cambiarCost(FILE *, prod_tienda *);
@@ -94,22 +94,37 @@ prod_tienda * hazProductos(prod_tienda *producto){
 		producto[i].disponible = 10;
 	return producto;
 }
-void insertarProd(FILE *archivo, prod_tienda *producto){
+void insertarProd(FILE *inventario, prod_tienda *producto){
 	int i;
-	if((archivo =fopen("archivo.txt","r")) == NULL)
-		if((archivo =fopen("archivo.txt","a+")) == NULL)
+	if((inventario =fopen("inventario.txt","r")) == NULL)
+		if((inventario =fopen("inventario.txt","a+")) == NULL)
 		{
-			p("\n\tError, el archivo no existe o esta daniado");
+			p("\n\tError, el inventario no existe o esta daniado");
 			exit(0);
 		}
 		else{
-			fprintf(archivo, "Productos 	Costo\tDisponible\n\n");
+			fprintf(inventario, "Productos 	Costo\tDisponible\n\n");
 			for(i=0;i<20;i++)
-			fprintf(archivo, "%16s%10.2f\t%d\n", producto[i].producto, producto[i].costo, producto[i].disponible);
+			fprintf(inventario, "%16s%10.2f\t%d\n", producto[i].producto, producto[i].costo, producto[i].disponible);
 			}
-	fclose(archivo);
+	fclose(inventario);
 	return;
 }
+void muestraInv(FILE *inventario,prod_tienda *producto){
+	if((inventario = fopen("inventario.txt", "a+")) ==NULL)
+		p("\n\n\tError al imprimir, el inventario no existe o esta daniado");
+	else{
+		char cadena = fgetc(inventario);
+		while(cadena != -1)
+		{
+			p("%c",cadena);
+			cadena=fgetc(inventario);
+		}
+	}
+		fclose(inventario);
+		return;
+}
+
 int main(){
 	p("hola");
 }
