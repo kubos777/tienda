@@ -96,19 +96,18 @@ prod_tienda * hazProductos(prod_tienda *producto){
 	strcpy(producto[19].producto, "Azucar");
 	producto[19].costo = 16.00;
 	for (i = 0; i < 20; i++)
-		producto[i].disponible = 10;
+		producto[i].disponible = 500;
 	return producto;
 }
 void insertarProd(FILE *inventario, prod_tienda *producto){
 	int i;
-	if((inventario =fopen("inventario.txt","r")) == NULL)
-		if((inventario =fopen("inventario.txt","a+")) == NULL)
+	
+		if((inventario =fopen("inventario.txt","w+")) == NULL)
 		{
 			p("\n\tError, el inventario no existe o esta daniado");
 			exit(0);
 		}
 		else{
-			fprintf(inventario, "\n\t\tProductos 	\t\tCosto\tDisponible\n\n");
 			for(i=0;i<20;i++)
 			fprintf(inventario, "%16s%10.2f\t%d\n", producto[i].producto, producto[i].costo, producto[i].disponible);
 			}
@@ -116,7 +115,7 @@ void insertarProd(FILE *inventario, prod_tienda *producto){
 	return;
 }
 void muestraInv(FILE *inventario,prod_tienda *producto){
-	if((inventario = fopen("inventario.txt", "a+")) ==NULL)
+	if((inventario = fopen("inventario.txt", "r")) ==NULL)
 		p("\n\n\tError al imprimir, el inventario no existe o esta daniado");
 	else{
 		char cadena = fgetc(inventario);
