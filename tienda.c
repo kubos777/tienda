@@ -129,6 +129,55 @@ void muestraInv(FILE *inventario,prod_tienda *producto){
 		fclose(inventario);
 		return;
 }
+prod_tienda * cambiaCantidad (FILE *inventario, prod_tienda *producto)
+{
+	char cambio[15];
+	int i, actualizado;
+
+	system("clear");
+	p("\tProductos    Costo\tDisponible\n\n");
+	muestraInv (inventario, producto);
+	p("\n\t\t¿De qué producto deseas cambiar su disponibilidad?\n\t\t\t : ");
+	s(" %[^\n]", cambio);
+
+	for (i = 0; i < 20; i ++)
+		if (strcmp(cambio, producto[i].producto) == 0)
+		{
+			p("\n\t\t¿Cuántos productos de '%s' quedan? ", cambio);
+			s("%d", &actualizado);
+			producto[i].disponible = actualizado;
+			return producto;
+		}
+	p("\n\t\tNo se encuentra el producto.\n\tPresiona una tecla para continuar ...");
+	getchar();
+	getchar();
+	return producto;
+}
+prod_tienda * cambiaPrecio (FILE *inventario, prod_tienda *producto)
+{
+	char cambio[15];
+	int i;
+	float actualizado;
+
+	system("clear");
+	p("\tProductos    Costo\tDisponible\n\n");
+	muestraInv (inventario, producto);
+	p("\n\t\t¿A qué producto deseas cambiarle el precio?\n\t\t\t -> ");
+	s(" %[^\n]", cambio);
+
+	for (i = 0; i < 20; i ++)
+		if (strcmp(cambio, producto[i].producto) == 0)
+		{
+			p("\n\t\tIngresa el nuevo precio de  '%s': ", cambio);
+			s("%f", &actualizado);
+			producto[i].costo = actualizado;
+			return producto;
+		}
+	p("\n\t\tNo se encuentra el producto.\n\tPresiona una tecla para continuar");
+	getchar();
+	getchar();
+	return producto;
+}
 
 int main(){
 	FILE *inventario = NULL;
@@ -141,16 +190,24 @@ int main(){
 	do{
 		system("clear");
 		p("\n\tInventario: \n\n");
-		p("Seleccione la opcion que desea realizar: \n\n\t1.-Mostrar el inventario\n\n\t2.-Actualizar cantidad\n\n\t3.-Actualizar precio\n\n\t4.-Salir");
+		p("Seleccione la opcion que desea realizar: \n\n\t1.-Cambiar cantidad\n\n\t2.-Cambiar precio\n\n\t3.-Salir");
 		s("%d",&opcion);
 		switch(opcion){
 			case 1:
-			p("\n");
-			muestraInv(inventario,producto);
+			producto = cambiaCantidad (inventario, producto);
+			insertarProd(inventario, producto);
+			break;
 			case 2:
+			producto = cambiaPrecio (inventario, producto);
+			insertarProd (inventario, producto);
+			break;
+			case 3:
+			salir =1;
 			break;
 			default:
 			opcion = 0;
+			salir =1;
+			p("Opcion inválida. Hasta luego\n\n");
 		}
 	}while(salir == 0 );
 	
