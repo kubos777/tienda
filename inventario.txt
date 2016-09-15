@@ -1,0 +1,22 @@
+Productos 	Costo	Disponible
+
+          Aceite     18.50	10
+       Coca-cola     23.00	10
+            Nito      9.00	10
+           Chips     10.00	10
+          Chetos      8.00	10
+           Huevo     25.50	10
+        Frijoles     16.50	10
+           Queso     65.00	10
+           Jamon     40.00	10
+           Leche     16.00	10
+           Yogur      5.50	10
+     Mantequilla     10.00	10
+          Dulces      1.50	10
+           Salsa     10.50	10
+          Chiles     12.50	10
+       Chipotles     11.00	10
+             Pan     27.00	10
+       Mermelada     18.00	10
+             Sal     11.50	10
+          Azucar     16.00	10

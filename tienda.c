@@ -18,31 +18,36 @@ prod_tienda * cambiarCost(FILE *, prod_tienda *);
 void muestraInv(FILE *,prod_tienda *);
 void insertarProd(FILE *, prod_tienda *);
 
-int login(){
+int login () {
 	int entrada=1, n_intentos=0;
 	char usuario[16], contrasenia[16];
-	while(1){
+	while (1) {
 		system("clear");
 		p("\n\t Abarrotes ****Los prebes****\n\t\n\tInicia sesion para continuar: ");
-		p("\n\n\tUsuario: ");
-		s("%[^\n]", usuario);
-		p("\n\n\tContrasenia: ");
-		s("%[^\n]", contrasenia);
-	if (strcmp(usuario, "Donaldo") == 0 && strcmp(contrasenia, "1994") == 0)
-		return entrada;
-	else if(strcmp(usuario, "Admin") == 0 && strcmp(contrasenia, "toor") == 0)
-		return entrada;
-	else
-		n_intentos ++;
-		if(n_intentos == 3)
+		p("\n\n\t\t\tUsuario: ");
+		s(" %[^\n]", usuario);
+		p("\n\t\t\tContrasenia: ");
+		s(" %[^\n]", contrasenia);
+
+		if (strcmp(usuario, "Donaldo") == 0 && strcmp(contrasenia, "1994") == 0)
+			return entrada;
+		else if (strcmp(usuario, "Admin") == 0 && strcmp(contrasenia, "toor") == 0)
+			return entrada;
+		else 
 		{
-			p("\n\tError, has alcanzado el limite de intentos.");
-			exit(0);
-		}
-		else{
-			p("\n\tError intentelo de nuevo.");
-			getchar();
-			getchar();
+			n_intentos ++;
+
+			if (n_intentos == 3) 
+			{
+				p("\n\n\t\tError, has alcanzado el limite de intentos\n\n");
+				exit (0);
+			}
+			else
+			{
+				printf("\n\n\t\tError, ususario o contrasenia incorrectos\n\n");
+				getchar();
+				getchar();
+			}
 		}
 	}
 	return 0;
@@ -103,7 +108,7 @@ void insertarProd(FILE *inventario, prod_tienda *producto){
 			exit(0);
 		}
 		else{
-			fprintf(inventario, "Productos 	Costo\tDisponible\n\n");
+			fprintf(inventario, "\n\t\tProductos 	\t\tCosto\tDisponible\n\n");
 			for(i=0;i<20;i++)
 			fprintf(inventario, "%16s%10.2f\t%d\n", producto[i].producto, producto[i].costo, producto[i].disponible);
 			}
@@ -126,6 +131,29 @@ void muestraInv(FILE *inventario,prod_tienda *producto){
 }
 
 int main(){
-	p("hola");
+	FILE *inventario = NULL;
+	prod_tienda *producto;
+	int salir =0, opcion = 0;
+	if( login() == 1)
+	{
+		producto= hazProductos(producto);
+		insertarProd(inventario, producto);
+	do{
+		system("clear");
+		p("\n\tInventario: \n\n");
+		p("Seleccione la opcion que desea realizar: \n\n\t1.-Mostrar el inventario\n\n\t2.-Actualizar cantidad\n\n\t3.-Actualizar precio\n\n\t4.-Salir");
+		s("%d",&opcion);
+		switch(opcion){
+			case 1:
+			p("\n");
+			muestraInv(inventario,producto);
+			case 2:
+			break;
+			default:
+			opcion = 0;
+		}
+	}while(salir == 0 );
+	
+	}
 }
 
